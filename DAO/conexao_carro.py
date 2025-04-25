@@ -1,9 +1,9 @@
 # conexao_sql.py
 import sqlite3 as sql
 import os
-from Models.veiculo import Veiculo  # Pode ser usado nas funções
+# from Models.veiculo import Veiculo 
 
-DATABASE_PATH = os.path.join(os.path.dirname(__file__), "lava_jato.db")
+DATABASE_PATH = os.path.join(os.path.dirname(__file__), "carro.db")
 
 def conectar_bd():
     """Cria e retorna uma nova conexão com o banco de dados."""
@@ -21,13 +21,14 @@ def criar_tabela_se_nao_existe():
         if conexao:
             cursor = conexao.cursor()
             cursor.execute('''
-                CREATE TABLE IF NOT EXISTS lava_jato (
-                    id INTEGER PRIMARY KEY,
+                CREATE TABLE IF NOT EXISTS carro (
+                    id_carro INTEGER PRIMARY KEY,
                     placa TEXT NOT NULL,
                     tamanho TEXT NOT NULL,
                     tipo TEXT NOT NULL,
-                    entrada TEXT,
+                    entrada TEXTE,
                     saida TEXT
+
                 );
             ''')
             conexao.commit()
@@ -39,14 +40,14 @@ def criar_tabela_se_nao_existe():
         if conexao:
             conexao.close()
 
-def adicionar_veiculo_bd(veiculo: Veiculo):
+def adicionar_veiculo_bd(veiculo):
     conexao = conectar_bd()
     cursor = None
     try:
         if conexao:
             cursor = conexao.cursor()
             cursor.execute('''
-                INSERT INTO lava_jato(
+                INSERT INTO carro(
                     placa, tamanho, tipo, entrada, saida)
                 VALUES(?, ?, ?, ?, ?)
             ''', (veiculo.placa, veiculo.tamanho, veiculo.tipo, veiculo.entrada, veiculo.saida))
@@ -68,7 +69,7 @@ def listar_veiculos_bd():
     try:
         if conexao:
             cursor = conexao.cursor()
-            cursor.execute("SELECT * FROM lava_jato")
+            cursor.execute("SELECT * FROM carro")
             veiculos = cursor.fetchall()
             return veiculos
     except sql.Error as e:
@@ -80,24 +81,6 @@ def listar_veiculos_bd():
         if conexao:
             conexao.close()
 
-# def remover_veiculo_bd(placa):
-#     conexao = conectar_bd()
-#     cursor = None
-#     try:
-#         if conexao:
-#             cursor = conexao.cursor()
-#             cursor.execute("DELETE FROM lava_jato WHERE placa=?", (placa,))
-#             conexao.commit()
-#             print(f"Veículo com placa '{placa}' removido (em conexao_sql.py).")
-#     except sql.Error as e:
-#         print(f"Erro ao remover veículo (em conexao_sql.py): {e}")
-#         if conexao:
-#             conexao.rollback()
-#     finally:
-#         if cursor:
-#             cursor.close()
-#         if conexao:
-#             conexao.close()
 
 def confirmar_veiculo(placa):
     conexao = conectar_bd()
@@ -105,7 +88,7 @@ def confirmar_veiculo(placa):
     try:
         if conexao:
             cursor = conexao.cursor()
-            cursor.execute("SELECT placa from lava_jato WHERE placa=?", (placa,))
+            cursor.execute("SELECT placa from carro WHERE placa=?", (placa,))
             resultado = cursor.fetchone()  # Busca a primeira linha do resultado
             if resultado:
                 return True  # A placa existe no banco de dados
@@ -114,7 +97,7 @@ def confirmar_veiculo(placa):
         else:
             return False
     except sql.Error as e:
-        print(f"Erro ao confirmar veículo (em conexao_sql.py): {e}")
+        print(f"Erro ao confirmar veículo (em conexao_lava_jato.py): {e}")
         return False # Em caso de erro, retorna False por segurança
     finally:
         if cursor:
@@ -129,7 +112,7 @@ def remover_veiculo_bd_por_placa(placa, saida):
         if conexao:
             cursor = conexao.cursor()
             if confirmar_veiculo(placa):
-                cursor.execute("UPDATE lava_jato SET saida=? WHERE placa=?", (saida, placa))
+                cursor.execute("UPDATE carro SET saida=? WHERE placa=?", (saida, placa))
                 conexao.commit()
                 if cursor.rowcount > 0:
                     return True
@@ -145,3 +128,4 @@ def remover_veiculo_bd_por_placa(placa, saida):
             cursor.close()
         if conexao:
             conexao.close()
+            

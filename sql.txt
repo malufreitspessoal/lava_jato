@@ -1,8 +1,0 @@
-create table lava_jato if not exist (
-    id INT PRIMARY KEY,
-    placa VARCHAR(10) NOT NULL,
-    tamanho VARCHAR(1) NOT NULL,
-    tipo VARCHAR(10) NOT NULL,
-    entrada VARCHAR(20),
-    saida VARCHAR(20)
-)

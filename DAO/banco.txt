@@ -1,0 +1,16 @@
+terei 3 tabelas 
+
+Cliente ->
+posso ter cliente sem carro
+
+Veiculos ->
+so posso ter carro se tiver cliente
+
+CHECK_IN -> 
+so posso fazer check in se tiveer um carro
+colocar aqui tbm a previsao do tempo de acordo com o tamanho do carro
+
+veiculos conecta em cliente
+CHECK_IN conecta em veiculos 
+
+fazer as credenciais de quem pode acessar o Administrador

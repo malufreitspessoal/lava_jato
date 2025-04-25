@@ -1,8 +1,9 @@
+# conexao_sql.py
 import sqlite3 as sql
 import os
 # from Models.veiculo import Veiculo  # Pode ser usado nas funções
 
-DATABASE_PATH = os.path.join(os.path.dirname(__file__), "clientes.db")
+DATABASE_PATH = os.path.join(os.path.dirname(__file__), "check_in.db")
 
 def conectar_bd():
     """Cria e retorna uma nova conexão com o banco de dados."""
@@ -10,7 +11,7 @@ def conectar_bd():
         conexao = sql.connect(DATABASE_PATH)
         return conexao
     except sql.Error as e:
-        print(f"Erro ao conectar ao banco de dados (em conexao_clientes.py): {e}")
+        print(f"Erro ao conectar ao banco de dados (em conexao_check_in.py): {e}")
         return None
 
 def criar_tabela_se_nao_existe():
@@ -19,15 +20,13 @@ def criar_tabela_se_nao_existe():
     try:
         if conexao:
             cursor = conexao.cursor()
-            cursor.execute("PRAGMA foreign_keys = ON;")
             cursor.execute('''
-                CREATE TABLE IF NOT EXISTS cliente (
-                    id_cliente INTEGER PRIMARY KEY,
-                    nome TEXT NOT NULL,
-                    email TEXT NOT NULL,
-                    cpf TEXT NOT NULL,
-                    telefone TEXT,
-                    mes_nascimento TEXT
+                CREATE TABLE IF NOT EXISTS check_in (
+                    id_check_in INTEGER PRIMARY KEY,
+                    entrada TEXT NOT NULL,
+                    saida TEXT,
+                    FOREIGN KEY (id_carro) REFERENCES carro(id_carro)
+
                 );
             ''')
             conexao.commit()
@@ -39,14 +38,4 @@ def criar_tabela_se_nao_existe():
         if conexao:
             conexao.close()
 
-def adicionar_cliente_bd():
-    pass
-
-def excluir_cliente_bd():
-    pass
-
-def editar_cliente_bd():
-    pass
-
-def listar_clientes():
-    pass
+criar_tabela_se_nao_existe()
