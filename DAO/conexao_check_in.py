@@ -38,4 +38,3 @@ def criar_tabela_se_nao_existe():
         if conexao:
             conexao.close()
 
-criar_tabela_se_nao_existe()

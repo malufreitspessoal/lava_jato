@@ -14,7 +14,7 @@ def conectar_bd():
         print(f"Erro ao conectar ao banco de dados (em conexao_sql.py): {e}")
         return None
 
-def criar_tabela_se_nao_existe():
+def criar_tabela_carro_se_nao_existe():
     conexao = conectar_bd()
     cursor = None
     try:
