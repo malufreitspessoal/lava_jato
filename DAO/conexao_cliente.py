@@ -1,74 +1,88 @@
-import sqlite3 as sql
-import os
-# from Models.veiculo import Veiculo  # Pode ser usado nas funções
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.exc import SQLAlchemyError
+from Models.cliente import Cliente
+from DAO.setup_db import Session
 
-DATABASE_PATH = os.path.join(os.path.dirname(__file__), "cliente.db")
+# engine = create_engine('sqlite:///DAO/cliente.db', echo=True)  # echo=True mostra os comandos SQL
 
-def conectar_bd():
-    """Cria e retorna uma nova conexão com o banco de dados."""
-    try:
-        conexao = sql.connect(DATABASE_PATH)
-        return conexao
-    except sql.Error as e:
-        print(f"Erro ao conectar ao banco de dados (em conexao_cliente.py): {e}")
-        return None
+# # 2. Criar uma base para os modelos
 
-def criar_tabela_cliente_se_nao_existe():
-    conexao = conectar_bd()
-    cursor = None
-    try:
-        if conexao:
-            cursor = conexao.cursor()
-            # cursor.execute("PRAGMA foreign_keys = ON;")
-            cursor.execute('''
-                CREATE TABLE IF NOT EXISTS cliente (
-                    id_cliente INTEGER PRIMARY KEY,
-                    nome TEXT NOT NULL,
-                    email TEXT NOT NULL,
-                    cpf TEXT NOT NULL,
-                    telefone TEXT,
-                    mes_nascimento TEXT
-                );
-            ''')
-            conexao.commit()
-    except sql.Error as e:
-        print(f'Erro ao criar/verificar tabela (em conexao_sql.py): {e}')
-    finally:
-        if cursor:
-            cursor.close()
-        if conexao:
-            conexao.close()
+# # Cria as tabelas no banco
+# Base.metadata.create_all(engine)
+
+# # Cria uma sessão para interagir com o banco
+# Session = sessionmaker(bind=engine)
+session = Session()
 
 def adicionar_cliente_bd(cliente):
-    conexao = conectar_bd()
-    cursor = None
     try:
-        if conexao:
-            cursor = conexao.cursor()
-            cursor.execute('''
-                INSERT INTO cliente(
-                    nome, email, cpf, telefone, mes_nascimento)
-                VALUES(?, ?, ?, ?, ?)
-            ''', (cliente.nome, cliente.email, cliente.cpf, cliente.telefone, cliente.mes_nascimento))
-            conexao.commit()
-            print(f"Cliente '{cliente.nome}' adicionado com sucesso (em conexao_cliente.py).")
-            return True
-    except sql.Error as e:
+        # Adicionar à sessão
+        session.add(cliente)
+        # Confirmar a transação
+        session.commit()
+        print(f"Cliente '{cliente.nome}' adicionado com sucesso (em conexao_cliente.py).")
+        return True
+    except SQLAlchemyError as e:
         print(f"Erro ao adicionar cliente ao banco de dados (em conexao_cliente.py): {e}")
-        if conexao:
-            conexao.rollback()
+        session.rollback()
         return False
-    finally:
-        if cursor:
-            cursor.close()
-        if conexao:
-            conexao.close()
 
-def excluir_cliente_bd():
-    pass
 
-def editar_cliente_bd():
-    pass
+def excluir_cliente_bd(cpf):
+    try:
+        cliente_removido = session.query(Cliente).filter(Cliente.cpf == cpf).first() # Retorna o primeiro cliente que corresponde ao filtro
+       
+        if cliente_removido:
+            session.delete(cliente_removido)
+        # Confirmar a transação
+            session.commit()
+            print(f"Cliente com CPF {cpf} removido com sucesso (em conexao_cliente.py).")
+            return True
+        else:
+            print(f"Nenhum cliente encontrado com o CPF: {cpf} (em conexao_cliente.py).")
+            return False
+    
+    except SQLAlchemyError as e:
+        print(f"Erro ao adicionar cliente ao banco de dados (em conexao_cliente.py): {e}")
+        session.rollback()
+        return False
 
-def listar_clientes():
-    pass
+def editar_cliente_bd(cpf, cliente_editado:Cliente):
+    try:
+        cliente = session.query(Cliente).filter(Cliente.cpf == cpf).first()
+        
+        if cliente:
+            cliente.nome = cliente_editado.nome
+            cliente.email = cliente_editado.email
+            cliente.cpf = cliente_editado.cpf
+            cliente.telefone = cliente_editado.telefone
+            cliente.mes_nascimento = cliente_editado.mes_nascimento
+            session.commit()
+            print(f"Cliente com CPF {cpf} atualizado com sucesso (em conexao_cliente.py).")
+            return True
+        else:
+            print(f"Nenhum cliente encontrado com o CPF: {cpf} (em conexao_cliente.py).")
+            return False
+    
+    except SQLAlchemyError as e:
+        print(f"Erro ao atualizar cliente (em conexao_cliente.py): {e}")
+        session.rollback()
+        return False
+
+def listar_clientes_bd(): 
+    '''
+    retorna uma lista de objetos da classe Cliente
+    '''
+    clientes = session.query(Cliente).all()
+
+    return clientes
+
+def mostrar_cpf_filtrado(cpf):
+    lista_filtrada_por_cpf = session.query(Cliente).filter(Cliente.cpf.like(f'%{cpf}%')).all()   
+    
+    if lista_filtrada_por_cpf:
+        return lista_filtrada_por_cpf
+    return False
+

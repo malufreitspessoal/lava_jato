@@ -2,7 +2,7 @@
 
 import streamlit as st
 
-from Controller.cliente_controller import adicionar_cliente, verificar_credenciais
+from Controller.cliente_controller import adicionar_cliente, mostrar_clientes, verificar_credenciais
     
 def menu_cliente(): 
     if 'infos_clientes' not in st.session_state:
@@ -12,11 +12,17 @@ def menu_cliente():
             st.subheader("Informações do Cliente")
 
             # Estado para controlar a exibição do formulário de cadastro
-            if 'exibir_formulario_cadastro' not in st.session_state:
+            if 'exibir_formulario_cadastro' not in st.session_state and 'exibir_todos_clientes' not in st.session_state and 'editar_cliente_por_cpf' not in st.session_state and 'excluir_cliente_por_cpf' not in st.session_state:
                 st.session_state.exibir_formulario_cadastro = False
+                st.session_state.exibir_todos_clientes = False
+                st.session_state.editar_cliente_por_cpf = False
+                st.session_state.excluir_cliente_por_cpf = False
 
             if st.button('Cadastrar novo cliente 🆕', key='cadastrar_novo_cliente'):
                 st.session_state.exibir_formulario_cadastro = True
+                st.session_state.exibir_todos_clientes = False
+                st.session_state.editar_cliente_por_cpf = False
+                st.session_state.excluir_cliente_por_cpf = False
 
             # Exibir o formulário de cadastro se o estado for True
             if st.session_state.exibir_formulario_cadastro:
@@ -42,7 +48,30 @@ def menu_cliente():
                         st.session_state.exibir_formulario_cadastro = False
             
             elif st.button('Ver clientes 🔍', key= 'exibir_clientes'):
-                st.success('clientes')
+                st.session_state.exibir_todos_clientes = True
+                st.session_state.exibir_formulario_cadastro = False
+                st.session_state.editar_cliente_por_cpf = False
+                st.session_state.excluir_cliente_por_cpf = False
+                
+                if st.session_state.exibir_todos_clientes:
+                    mostrar_clientes()
+                    
+
+                   
+                   
+    #                 if "exibir_veiculos" not in st.session_state:
+    #     st.session_state.exibir_veiculos = False
+
+    # if st.session_state.exibir_veiculos:
+    #     veiculos = listar_veiculos()
+    #     if veiculos:
+    #         st.write("## Veículos no Lava-Jato:")
+    #         for veiculo in veiculos:
+    #             st.write(f"Placa: {veiculo[1]}, Tamanho: {veiculo[2]}, Tipo: {veiculo[3]}, Entrada: {veiculo[4]}, Saída: {veiculo[5]}")
+    #     else:
+    #         st.info("Nenhum veículo no lava-jato.")
+            
+            
             elif st.button('Atualizar cliente 🔄', key= 'atualizar_cliente'):
                 st.success('Atualizar clientes')
             elif st.button('Deletar cliente ⛔', key= 'deletar_cliente'):

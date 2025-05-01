@@ -1,12 +1,12 @@
 from datetime import datetime
-from DAO.conexao_carro import adicionar_veiculo_bd, remover_veiculo_bd_por_placa, listar_veiculos_bd
+from DAO.conexao_veiculo import adicionar_veiculo_bd, remover_veiculo_bd_por_placa, listar_veiculos_bd
 from Models.veiculo import Veiculo
 import re
 
-def adicionar_veiculo(placa, tamanho, tipo):
+def adicionar_veiculo(placa, tamanho, tipo, id_cliente_cpf):
     mascara_ptbr = '%d/%m/%Y %H:%M'
     entrada = datetime.now().strftime(mascara_ptbr)
-    veiculo = Veiculo(placa=placa, tamanho=tamanho, entrada=entrada, tipo=tipo)
+    veiculo = Veiculo(placa=placa, tamanho=tamanho, entrada=entrada, tipo=tipo, id_cliente= id_cliente_cpf)
     adicionar_veiculo_bd(veiculo)
 
 def remover_veiculo(placa):
@@ -29,3 +29,4 @@ def verificar_placa(placa):
         return True
     else:
         return False
+    

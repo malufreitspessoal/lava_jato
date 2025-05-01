@@ -1,6 +1,4 @@
 import streamlit as st
-from DAO.conexao_carro import criar_tabela_carro_se_nao_existe
-from DAO.conexao_cliente import criar_tabela_cliente_se_nao_existe
 from View.menu_view_adm import botao_menu_adm, menu_adm
 from View.menu_view_checkin import botao_menu_check_in, menu_check_in
 from View.menu_view_checkout import botao_menu_check_out, menu_check_out
@@ -8,8 +6,6 @@ from View.menu_view_clientes import botao_menu_cliente, menu_cliente
 from View.menu_view_veiculos import botao_menu_veiculo, menu_veiculo
 
 # Garante que a tabela seja criada no início
-criar_tabela_carro_se_nao_existe()
-criar_tabela_cliente_se_nao_existe()
 
 st.title('Lava-Tudo 🚗🏍🧽')
 st.markdown('## O que você quer fazer?')

@@ -10,7 +10,7 @@ def menu_veiculo():
         if veiculos:
             st.write("## Veículos no Lava-Jato:")
             for veiculo in veiculos:
-                st.write(f"Placa: {veiculo[1]}, Tamanho: {veiculo[2]}, Tipo: {veiculo[3]}, Entrada: {veiculo[4]}, Saída: {veiculo[5]}")
+                st.write(f"Placa: {veiculo.placa}, Tamanho: {veiculo.tamanho}, Tipo: {veiculo.tipo}, Entrada: {veiculo.entrada}, Saída: {veiculo.saida}")
         else:
             st.info("Nenhum veículo no lava-jato.")
             
