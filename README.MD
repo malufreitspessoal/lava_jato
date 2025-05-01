@@ -1,69 +1,32 @@
-proximos passos:
-    - como vou mostrar que hrs o dono pode ir buscar 
-    - valor da lavagem 
+# Lava-Tudo: Sistema de Gerenciamento para Lava Jato 🚗🏍🧽
 
 
-# para mais tarde
-- colocar outra tabela com o nome do cliente e quem sabe mandar email promocional
+Este é um sistema simples de gerenciamento para um lava jato, desenvolvido utilizando Python com Streamlit para a interface do usuário, SQLAlchemy e SQLite para o gerenciamento e armazenamento de dados.
 
 
 # instalar os requeriments.txt
 pip install -r requeriments.txt
 
-# Lava-Tudo: Sistema de Gerenciamento para Lava Jato
-
-Este é um sistema simples de gerenciamento para um lava jato, desenvolvido utilizando Python com Streamlit para a interface do usuário e SQLite para o armazenamento de dados.
-
 ## Funcionalidades
 
 O sistema oferece as seguintes funcionalidades:
 
-* **Check-in de Veículos:** Permite registrar a entrada de um veículo no lava jato, coletando informações como placa, tamanho e tipo. A data e hora de entrada são registradas automaticamente.
-* **Check-out de Veículos:** Permite marcar a saída de um veículo, registrando a data e hora de saída.
-* **Listagem de Veículos:** Exibe todos os veículos atualmente registrados no sistema, mostrando suas informações de entrada e, se aplicável, saída.
+* **Check-in, Check-out e listagem de Veículos:** Permite registrar a entrada de um veículo no lava jato, coletando informações como placa, tamanho e tipo. A data e hora de entrada são registradas automaticamente.
 
-## Tecnologias Utilizadas
+* **Cadastramento de Clientes:** CRUDE para Clientes e tabelas relacionadas no banco de dados.
 
-* **Python:** Linguagem de programação principal.
-* **Streamlit:** Framework Python para criar interfaces web interativas de forma rápida e fácil.
-* **SQLite:** Banco de dados leve e auto-contido para armazenar os dados dos veículos.
+## 🚀 Tecnologias Utilizadas
+- 🐍 **Python**
+- 🌐 **Streamlit** (Interface Web interativa)
+- 🏛️ **SQLAlchemy** (ORM para manipulação do banco de dados)
+- 📦 **SQLite** (Banco de dados leve).
 
-## Estrutura do Projeto
 
-O projeto está organizado da seguinte forma:
-Markdown
 
-# Lava-Tudo: Sistema de Gerenciamento para Lava Jato
-
-Este é um sistema simples de gerenciamento para um lava jato, desenvolvido utilizando Python com Streamlit para a interface do usuário e SQLite para o armazenamento de dados.
-
-## Funcionalidades
-
-O sistema oferece as seguintes funcionalidades:
-
-* **Check-in de Veículos:** Permite registrar a entrada de um veículo no lava jato, coletando informações como placa, tamanho e tipo. A data e hora de entrada são registradas automaticamente.
-* **Check-out de Veículos:** Permite marcar a saída de um veículo, registrando a data e hora de saída.
-* **Listagem de Veículos:** Exibe todos os veículos atualmente registrados no sistema, mostrando suas informações de entrada e, se aplicável, saída.
-
-## Tecnologias Utilizadas
-
-* **Python:** Linguagem de programação principal.
-* **Streamlit:** Framework Python para criar interfaces web interativas de forma rápida e fácil.
-* **SQLite:** Banco de dados leve e auto-contido para armazenar os dados dos veículos.
-
-## Estrutura do Projeto
-
-O projeto está organizado da seguinte forma:
-
-Lava-Tudo/
-├── DAO/
-│   └── conexao_sqlite.py     # Lógica de conexão e acesso ao banco de dados SQLite
-├── Controller/
-│   └── veiculo_controller.py # Lógica de controle das operações dos veículos
-├── Models/
-│   └── veiculo.py            # Definição da classe Veiculo (se houver)
-├── menu_view.py              # Script principal da interface Streamlit
-└── README.md                 # Este arquivo
+# proximos passos:
+    - colocar outra tabela com o nome do cliente e quem sabe mandar email promocional
+    - como vou mostrar que hrs o dono pode ir buscar 
+    - valor da lavagem 
 
 
 ## Como Executar
