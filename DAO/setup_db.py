@@ -3,6 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from DAO.conexao_base import Base
 from Models.cliente import Cliente  # Importando Cliente
 from Models.veiculo import Veiculo  # Importando Veiculo
+from Models.presenca import Presenca
 
 # Criando um único banco de dados para todas as tabelas
 engine = create_engine('sqlite:///DAO/lava_jato.db', echo=True)

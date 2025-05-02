@@ -3,9 +3,24 @@ from View.menu_view_adm import botao_menu_adm, menu_adm
 from View.menu_view_checkin import botao_menu_check_in, menu_check_in
 from View.menu_view_checkout import botao_menu_check_out, menu_check_out
 from View.menu_view_clientes import botao_menu_cliente, menu_cliente
-from View.menu_view_veiculos import botao_menu_veiculo, menu_veiculo
+from View.menu_view_veiculos import botao_menu_veiculo, menu_veiculos
 
-# Garante que a tabela seja criada no início
+def inicializar_estado():
+    defaults = {
+        'infos_clientes': False,
+        'exibir_checkin': False,
+        'exibir_check_out': False,
+        'exibir_veiculos': False,
+        'exibir_adm': False,
+        'exibir_formulario_cadastro': False,
+        'exibir_todos_veiculos': False,
+        'exibir_formulario_checkin': False
+    }
+    for key, value in defaults.items():
+        if key not in st.session_state:
+            st.session_state[key] = value
+
+inicializar_estado()
 
 st.title('Lava-Tudo 🚗🏍🧽')
 st.markdown('## O que você quer fazer?')
@@ -23,21 +38,22 @@ with check_out:
 
 with listar_todos:
     botao_menu_veiculo()
-        
-with adm :
+
+with adm:
     botao_menu_adm()
-        
-# # Ao clicar no botão "clientes"
-menu_cliente()
 
-# Ao clicar no botão "check-in"
-menu_check_in()
+# Renderizar menus com base no estado
+if st.session_state.infos_clientes:
+    menu_cliente()
 
-# Ao clicar no botão "check-out"
-menu_check_out()
+if st.session_state.exibir_checkin:
+    menu_check_in()
 
-# Ao clicar no botão "veiculos"
-menu_veiculo()
+if st.session_state.exibir_check_out:
+    menu_check_out()
 
-# Ao clicar no botão "ADM"
-menu_adm()
+if st.session_state.exibir_veiculos:
+    menu_veiculos()
+
+if st.session_state.exibir_adm:
+    menu_adm()

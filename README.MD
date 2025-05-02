@@ -13,7 +13,7 @@ O sistema oferece as seguintes funcionalidades:
 
 * **Check-in, Check-out e listagem de Veículos:** Permite registrar a entrada de um veículo no lava jato, coletando informações como placa, tamanho e tipo. A data e hora de entrada são registradas automaticamente.
 
-* **Cadastramento de Clientes:** CRUDE para Clientes e tabelas relacionadas no banco de dados.
+* **Cadastramento de Clientes:** CRUDE para Clientes e tabelas relacionadas no banco de dados.\
 
 ## 🚀 Tecnologias Utilizadas
 - 🐍 **Python**
