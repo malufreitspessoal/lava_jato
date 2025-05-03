@@ -10,10 +10,10 @@ def inicializar_estado():
         'infos_clientes': False,
         'exibir_checkin': False,
         'exibir_check_out': False,
-        'exibir_veiculos': False,
+        'infos_veiculos': False,
         'exibir_adm': False,
         'exibir_formulario_cadastro': False,
-        'exibir_todos_veiculos': False,
+        'exibir_veiculos': False,
         'exibir_formulario_checkin': False
     }
     for key, value in defaults.items():
@@ -25,7 +25,7 @@ inicializar_estado()
 st.title('Lava-Tudo 🚗🏍🧽')
 st.markdown('## O que você quer fazer?')
 
-cliente, check_in, check_out, listar_todos, adm = st.columns(5)
+cliente, check_in, check_out, infos_veiculos, adm = st.columns(5)
 
 with cliente:
     botao_menu_cliente()
@@ -36,7 +36,7 @@ with check_in:
 with check_out:
     botao_menu_check_out()
 
-with listar_todos:
+with infos_veiculos:
     botao_menu_veiculo()
 
 with adm:
@@ -52,7 +52,7 @@ if st.session_state.exibir_checkin:
 if st.session_state.exibir_check_out:
     menu_check_out()
 
-if st.session_state.exibir_veiculos:
+if st.session_state.infos_veiculos:
     menu_veiculos()
 
 if st.session_state.exibir_adm:

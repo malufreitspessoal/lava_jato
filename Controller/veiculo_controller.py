@@ -4,6 +4,9 @@ from Models.presenca import Presenca
 from Models.veiculo import Veiculo
 import re
 
+
+    
+
 def adicionar_veiculo(placa, tamanho, tipo, id_cliente_cpf):
     mascara_ptbr = '%d/%m/%Y %H:%M'
     hora_entrada = datetime.now().strftime(mascara_ptbr)

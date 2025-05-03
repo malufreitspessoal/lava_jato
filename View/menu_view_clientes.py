@@ -9,7 +9,7 @@ def botao_menu_cliente():
         st.session_state.infos_clientes = True
         st.session_state.exibir_checkin = False
         st.session_state.exibir_check_out = False
-        st.session_state.exibir_veiculos = False
+        st.session_state.infos_veiculos = False
         st.session_state.exibir_adm = False    
 
 def menu_cliente(): 
@@ -62,7 +62,9 @@ def menu_cliente():
                 st.session_state.excluir_cliente_por_cpf = False
                 
                 if st.session_state.exibir_todos_clientes:
-                    mostrar_clientes()
+                   clientes = mostrar_clientes()
+                   for cliente in clientes:
+                        st.write(f'Nome: {cliente.nome} Email: {cliente.email} CPF: {cliente.cpf} Telefone: ({cliente.telefone})  Mês de nascimento: {cliente.mes_nascimento} ')
                     
             elif st.button('Atualizar cliente 🔄', key= 'atualizar_cliente'):
                 st.success('Atualizar clientes')

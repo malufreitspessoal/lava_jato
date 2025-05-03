@@ -27,12 +27,9 @@ def mostrar_cpf_filtrado_cliente(cpf):
 
 
 def mostrar_clientes():
-    clientes = listar_clientes_bd() # lista de obj
+    return listar_clientes_bd() # lista de obj
     
-    if clientes:
-        clientes_dict = [vars(cliente) for cliente in clientes]  # Convertendo a lista de objetos para uma lista de dicionários
-        df = pd.DataFrame(clientes_dict)
-        return df
+
     
 def confirmar_cliente(cpf):
     lista_filtrada = mostrar_cpf_filtrado(cpf)

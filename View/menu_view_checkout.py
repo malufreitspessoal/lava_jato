@@ -1,5 +1,5 @@
 import streamlit as st
-from Controller.veiculo_controller import remover_veiculo
+from Controller.presenca_controller import fazer_check_out
 
 def menu_check_out():
     if "exibir_check_out" not in st.session_state:
@@ -9,11 +9,11 @@ def menu_check_out():
         placa_checkout = st.text_input('Informe a placa do veículo').upper().strip()
         if st.button("Confirmar Check-out", key= "confirmar_check_out"):
             if placa_checkout:
-                if remover_veiculo(placa_checkout):
+                if fazer_check_out(placa_checkout):
                     st.success(f"Checkout para veículo com placa '{placa_checkout}' realizado!")
                     st.session_state.exibir_check_out = False
-                elif remover_veiculo(placa_checkout) == False:
-                    st.warning('Veículo não encontrado')
+                elif fazer_check_out(placa_checkout) == False:
+                    st.warning('Veículo não encontrado ')
             else:
                 st.warning("Por favor, informe a placa do veículo para checkout.")
                 
