@@ -33,12 +33,13 @@ def menu_veiculos():
                 st.session_state.exibir_formulario_cadastro_carro = False
                 
                 
-            if st.session_state.exibir_veiculos:
+            if st.session_state.exibir_todos_veiculos:
                 veiculos = listar_veiculos()
                 if veiculos:
-                    st.write("## Veículos no Lava-Jato:")
-                    for veiculo in veiculos:
-                        st.write(f"Placa: {veiculo[0]}, Tamanho: {veiculo[1]}, Tipo: {veiculo[2]}, Entrada: {veiculo[3]}, Saída: {veiculo[4]}")
+                    st.write("## Veículos Cadastrados:")
+                    st.table(veiculos)
+                    # for veiculo in veiculos:
+                    #     st.write(f"Placa: {veiculo[0]}, Tamanho: {veiculo[1]}, Tipo: {veiculo[2]}, Entrada: {veiculo[3]}, Saída: {veiculo[4]}")
                 else:
                     st.info("Nenhum veículo no lava-jato.")
 

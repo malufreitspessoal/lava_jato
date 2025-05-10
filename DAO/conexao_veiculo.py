@@ -1,15 +1,9 @@
 from sqlalchemy.exc import SQLAlchemyError
+from Models.cliente import Cliente
 from Models.presenca import Presenca
 from Models.veiculo import Veiculo
 from DAO.setup_db import Session
 
-# engine = create_engine('sqlite:///DAO/veiculo.db', echo=True)  # echo=True mostra os comandos SQL
-
-# # Cria as tabelas no banco
-# Base.metadata.create_all(engine)
-
-# # Cria uma sessão para interagir com o banco
-# Session = sessionmaker(bind=engine)
 session = Session()
 
 def adicionar_veiculo_bd(veiculo:Veiculo, presensa:Presenca):
@@ -41,21 +35,20 @@ def adicionar_veiculo_bd(veiculo:Veiculo, presensa:Presenca):
     
 # Função para listar todos os veículos
 def listar_veiculos_bd():
-    veiculos = session.query(Veiculo.placa, Veiculo.id_cliente).all()
-    return veiculos
-
-
+    # Obtém todos os veículos
+    veiculos = session.query(Veiculo.placa, Veiculo.tamanho, Veiculo.tipo, Veiculo.id_cliente).all()
     
+    # Obtém todos os clientes e cria um dicionário para mapear id_cliente -> nome
+    clientes_dict = {id_cliente: nome for id_cliente, nome in session.query(Cliente.id_cliente, Cliente.nome).all()}
+    
+    # Substitui o ID do cliente pelo nome correspondente
+    todos_veiculos_identificados = [
+        (veiculo[0], veiculo[1], veiculo[2], clientes_dict.get(veiculo[3], "Cliente não encontrado"))
+        for veiculo in veiculos
+    ]
+    
+    return todos_veiculos_identificados
 
-
-    # try:
-    #     # Consultar todos os registros da tabela carro
-    #     veiculos = session.query(Veiculo).all()
-    #     # Retornar uma lista de dicionários para manter compatibilidade com fetchall
-    #     return veiculos
-    # except SQLAlchemyError as e:
-    #     print(f"Erro ao listar veículos (em conexao_sql.py): {e}")
-    #     return []
 
 # Função para confirmar se um veículo existe pela placa
 def confirmar_veiculo(placa):
@@ -70,17 +63,3 @@ def confirmar_veiculo(placa):
 # Função para atualizar a data de saída de um veículo pela placa
 def remover_veiculo_bd_por_placa(placa, saida):
     pass
-    # try:
-    #     # Verificar se o veículo existe
-    #     if confirmar_veiculo(placa):
-    #         # Atualizar a coluna saida do veículo com a placa fornecida
-    #         veiculo = session.query(Veiculo).filter_by(placa=placa).first()
-    #         veiculo.saida = saida
-    #         session.commit()
-    #         return True
-    #     else:
-    #         return False
-    # except SQLAlchemyError as e:
-    #     print(f"Erro ao dar checkout no veículo (em conexao_sql.py): {e}")
-    #     session.rollback()
-    #     return False

@@ -5,15 +5,6 @@ from sqlalchemy.exc import SQLAlchemyError
 from Models.cliente import Cliente
 from DAO.setup_db import Session
 
-# engine = create_engine('sqlite:///DAO/cliente.db', echo=True)  # echo=True mostra os comandos SQL
-
-# # 2. Criar uma base para os modelos
-
-# # Cria as tabelas no banco
-# Base.metadata.create_all(engine)
-
-# # Cria uma sessão para interagir com o banco
-# Session = sessionmaker(bind=engine)
 session = Session()
 
 def adicionar_cliente_bd(cliente):

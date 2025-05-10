@@ -34,8 +34,8 @@ def menu_cliente():
 
             # Exibir o formulário de cadastro se o estado for True
             if st.session_state.exibir_formulario_cadastro:
-                nome = st.text_input('Nome:', key="nome_input").strip()
-                email = st.text_input('Email:', key='email_input').strip()
+                nome = st.text_input('Nome:', key="nome_input").strip().upper()
+                email = st.text_input('Email:', key='email_input').strip().lower()
                 cpf = st.text_input('CPF:', key='cpf_input').strip()
                 telefone = st.text_input('Telefone:', key='telefone_input').strip()
                 mes_nascimento = st.text_input('Mês de nascimento (1 a 12):', key='mes_nascimento_input').strip()
