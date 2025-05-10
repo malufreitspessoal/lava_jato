@@ -1,10 +1,3 @@
-- Não estou conseguindo apertar o botao veiculo e aparecer as coias 
-- quero no botrao check in ele busque no BD a placa e faça o check_in. Só é possivel fazer check_in dps que cadastrar o veiculo
-
-- o veiculo so pode fazer check_in se nao tiver nenhum checkout em aberto
-
-
-
 # Lava-Tudo: Sistema de Gerenciamento para Lava Jato 🚗🏍🧽
 
 
